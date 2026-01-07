@@ -3,23 +3,7 @@
 An automated financial analyst that performs daily technical analysis (Golden Cross/Death Cross) and fundamental valuation (P/E Ratio) on a custom watchlist.
 
 ## 🏗️ Architecture
-
-graph LR
-    subgraph CI/CD Pipeline
-    A[GitHub Push] --> B[GitHub Actions]
-    B --> C[Build Docker Image]
-    C --> D[Push to Amazon ECR]
-    D --> E[Update Lambda]
-    end
-
-    subgraph Daily Execution
-    F[EventBridge Cron] -->|9AM SGT| G[AWS Lambda]
-    G --> H[yfinance API]
-    G --> I[Amazon SNS]
-    I --> J[Email Inbox]
-    G -.-> K[CloudWatch Logs]
-    end
-
+![Project Architecture Diagram](images/architecture_diagram.jpg)
 - **Trigger:** AWS EventBridge (Daily cron job)
 - **Compute:** AWS Lambda (Python 3.11 / Containerized)
 - **Image Registry:** AWS ECR
